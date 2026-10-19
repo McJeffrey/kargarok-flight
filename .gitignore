@@ -1,0 +1,28 @@
+# Build-Ordner (Mac, Windows, Testbuilds)
+build/
+bld-*/
+build-*/
+out/
+.vs/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CMakeUserPresets.json
+
+# Mod-Pakete und Binaerartefakte
+*.dusk
+*.so
+*.dylib
+*.dll
+*.lib
+*.exp
+*.pdb
+*.ilk
+*.o
+*.obj
+*.exe
+
+# Betriebssystem-Dateien
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,9 @@
+{
+  "id": "com.kaizuki.kargarok_flight",
+  "name": "Kargarok Flight",
+  "version": "2.4.1",
+  "author": "Kaizuki",
+  "description": "Fly anytime, anywhere on the friendly Kargarok! Call your ride and it swoops down, grabs Wolf Link in its talons and carries you high above Hyrule. Glide across Hyrule Field toward the castle, race through the canyon into Kakariko, circle the smoke of Death Mountain or sweep over the Gerudo Desert – the whole world is yours to explore from the sky. Speed up and slow down smoothly, hang perfectly still in the air to take in the view, burst ahead with a dash, or throw in loops and barrel rolls just for fun. Hold R and tap B to call the bird, tap B to land. Speed, camera and every flight button can be adjusted in the Mods panel.",
+  "icon": "res/icon.png",
+  "banner": "res/banner.png"
+}
