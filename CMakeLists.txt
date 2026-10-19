@@ -1,20 +1,32 @@
 cmake_minimum_required(VERSION 3.25)
+
+if (NOT DEFINED CMAKE_BUILD_TYPE AND NOT DEFINED ENV{CMAKE_BUILD_TYPE})
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type")
+endif ()
+
 # Version des Mods. Gleich halten mit mod.json "version" und src/core/kff/version.hpp (KFF_MOD_VERSION).
 # paket.sh prueft alle drei Stellen.
 project(kargarok_flight VERSION 2.4.1 LANGUAGES CXX)
 
-# Standalone build against a local Dusklight checkout.
-#   cmake -S . -B build -DDUSKLIGHT_DIR=<dusklight> -DDUSK_GAME_EXE=<Dusklight binary>
-# DUSK_GAME_EXE avoids the link-stub download in cmake/ModSDK.cmake. macOS: the Dusklight binary.
-# Windows: optional. Without it, ModSDK downloads the import library windows-amd64.lib; with it, pass that .lib.
-# Anleitung fuer Windows: WINDOWS.md.
+# Standalone build. Without options, cmake/FetchDusklight.cmake (from TwilitRealm/mod-template) fetches the pinned
+# Dusklight sources into ./dusklight:
+#   cmake -S . -B build
+# Use an existing checkout instead:
+#   cmake -S . -B build -DDUSKLIGHT_DIR=<dusklight>
+# DUSK_GAME_EXE avoids the link-stub download in cmake/ModSDK.cmake: a game binary or link stub (Windows: a .lib).
+# Anleitung fuer Windows: WINDOWS.md. Der Build fuer alle Plattformen laeuft in .github/workflows/build.yml.
 if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-    set(DUSKLIGHT_DIR "" CACHE PATH
-            "Path to the Dusklight source checkout (Pflicht: -DDUSKLIGHT_DIR=<Pfad>)")
-    if (NOT DUSKLIGHT_DIR)
-        message(FATAL_ERROR "DUSKLIGHT_DIR fehlt: cmake -S . -B build -DDUSKLIGHT_DIR=<Dusklight-Quellbaum>")
+    # Dusklight-Version, gegen die der Mod gebaut und getestet ist (Tag oder Commit-SHA).
+    if (NOT DUSKLIGHT_VERSION)
+        set(DUSKLIGHT_VERSION "v2.0.3")
     endif ()
+    include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/FetchDusklight.cmake")
     set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+    # MSVC meldet __cplusplus sonst als 199711L; dolphin/types.h definiert dann nullptr als NULL und die STL bricht.
+    # Dusklight setzt das Flag nur im eigenen Top-Level-CMakeLists, nicht im SDK.
+    if (MSVC)
+        add_compile_options(/Zc:__cplusplus)
+    endif ()
     add_subdirectory("${DUSKLIGHT_DIR}/sdk" dusk-sdk EXCLUDE_FROM_ALL)
 endif ()
 
