@@ -6,7 +6,7 @@ endif ()
 
 # Version des Mods. Gleich halten mit mod.json "version" und src/core/kff/version.hpp (KFF_MOD_VERSION).
 # paket.sh prueft alle drei Stellen.
-project(kargarok_flight VERSION 2.4.1 LANGUAGES CXX)
+project(kargarok_flight VERSION 2.4.2 LANGUAGES CXX)
 
 # Standalone build. Without options, cmake/FetchDusklight.cmake (from TwilitRealm/mod-template) fetches the pinned
 # Dusklight sources into ./dusklight:

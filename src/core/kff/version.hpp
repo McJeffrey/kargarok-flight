@@ -3,4 +3,4 @@
 // Bei einem neuen Stand hier aendern und mod.json "version" angleichen.
 #pragma once
 
-#define KFF_MOD_VERSION "2.4.1"
+#define KFF_MOD_VERSION "2.4.2"

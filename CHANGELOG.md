@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.4.2
 
 One `kargarok_flight.dusk` for every platform Dusklight supports. The mod code and its behavior in the game are unchanged.
 
@@ -18,6 +18,7 @@ One `kargarok_flight.dusk` for every platform Dusklight supports. The mod code a
 
 - README, INSTALL.md and WINDOWS.md describe all platforms. Tested in the game on macOS (Apple Silicon) and Windows (x64).
 - `.gitattributes` keeps text files LF, so `mod.json` is byte-identical in every platform package.
+- Version 2.4.2.
 
 ## 2.4.1
 

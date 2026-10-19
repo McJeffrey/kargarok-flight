@@ -8,7 +8,7 @@ Kargarok Flight is a mod for Dusklight 2.0.3, a reverse-engineered reimplementat
 
 | | |
 |---|---|
-| Version | 2.4.1 |
+| Version | 2.4.2 |
 | Platforms | One `kargarok_flight.dusk` for Windows (x64, ARM64), macOS (Apple Silicon, Intel), Linux (x86_64, aarch64), iOS and Android. Tested in the game on macOS (Apple Silicon) and Windows (x64). The other platforms are built, but not tested in the game. |
 | Dusklight | 2.0.3 |
 | Tested | Disc ID `RZDP` (PAL). The mod writes a `region:` line to the log at start. `GZ2P`, `GZ2E` and `GZ2J` are not tested. |
@@ -185,7 +185,7 @@ Open the Dusklight menu (see [Controls](#controls)), choose the **Mods** tab, an
 | Controls | Change flight buttons (default) | | Opens the Flight buttons window. The label shows "(N changed)" when you have changed buttons. |
 | Experimental | Ride as Human Link | off | Link rides as a human, with the same camera and controls as the wolf ride. Applies on your next call. |
 
-The footer reads: "Version 2.4.1. Start speed and Ride as Human Link apply on your next call. Show tips applies from your next ride. Everything else applies at once."
+The footer reads: "Version 2.4.2. Start speed and Ride as Human Link apply on your next call. Show tips applies from your next ride. Everything else applies at once."
 
 The tips show in two parts. The first tip appears when a ride starts, for 5 seconds. The second appears after about 10 seconds of riding, for 6 seconds, if the ride is still running. Tips show on the first three rides only, and each ride uses up one. Switching the tips off hides them and keeps the count. Switching them on again gives three more rides with tips.
 
@@ -263,7 +263,7 @@ See [INSTALL.md](INSTALL.md). In short:
    - Windows: `%APPDATA%\TwilitRealm\Dusklight\mods`
    - macOS: `~/Library/Application Support/TwilitRealm/Dusklight/mods`
    - Linux: `~/.local/share/TwilitRealm/Dusklight/mods`
-3. Start Dusklight. The log then contains the line `kff: initialize v2.4.1 (Kargarok Flight, Release, ohne Autotest)`. If it is missing, the mod is not active. The footer of the Mods panel shows "Version 2.4.1".
+3. Start Dusklight. The log then contains the line `kff: initialize v2.4.2 (Kargarok Flight, Release, ohne Autotest)`. If it is missing, the mod is not active. The footer of the Mods panel shows "Version 2.4.2".
 
 ## Configuration
 
@@ -305,7 +305,7 @@ Example:
 
 ## Troubleshooting
 
-- **The mod is not active after start.** The log has no line `kff: initialize v2.4.1 (...)`. Check that `kargarok_flight.dusk` is in the mods folder and was copied completely.
+- **The mod is not active after start.** The log has no line `kff: initialize v2.4.2 (...)`. Check that `kargarok_flight.dusk` is in the mods folder and was copied completely.
 - **The call does not happen.** Search the log for `call rejected`. The reason is given in brackets. The [Log messages](#log-messages) list explains each reason.
 - **The bird disappears, or the ride ends with `Stuck`.** The bird stood still for 300 ticks (10 s) without stick input, for example against a wall or under a ceiling. Keep the Control Stick moving.
 - **Hovering does not start.** The bird hovers when its speed reaches 0 percent. Hold L until it stops, or tap D-Pad Down until the speed is 0. If the speed stays above 0, keep holding L.
@@ -579,5 +579,5 @@ The reasons below are the texts the log prints, in German. The explanation is in
 - `tempo: GAS schneller f=<n> tempomat=<p>%`, `tempo: GAS langsamer f=<n> tempomat=<p>%` and `tempo: GAS aus f=<n> tempomat=<p>%`: a speed key was pressed, or let go. The percentage is the speed you set.
 - `tempo: SCHRITT hoch -> <p>%` and `tempo: SCHRITT runter -> <p>%`: a D-Pad step.
 - `tempo: SCHWEBEN an (Stillstand) f=<n> tempomat=<x>`: the bird hovers, because the speed is 0 percent. `tempo: SCHWEBEN aus durch <Gas, Steuerkreuz hoch oder Dash> f=<n>`: the hover ended.
-- `kff: initialize v2.4.1 (Kargarok Flight, Release, ohne Autotest)`: the mod is active.
+- `kff: initialize v2.4.2 (Kargarok Flight, Release, ohne Autotest)`: the mod is active.
 - `registry check: callbacks=... replaces=... modules=... disabled=... conflicts=...`: the hook registry check at start.

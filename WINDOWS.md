@@ -1,4 +1,4 @@
-# Kargarok Flight 2.4.1 on Windows: build and test
+# Kargarok Flight 2.4.2 on Windows: build and test
 
 ## Kurzfassung (Deutsch)
 
@@ -82,14 +82,14 @@ Keyboard: Dusklight 2.0.3 has no default keyboard keys. Without a controller, th
 
 Log checks (open the newest `dusklight*.log` after the start):
 
-- [ ] `kff: initialize v2.4.1 (Kargarok Flight, Release, ohne Autotest)` is present. If it is missing, the mod is not active.
+- [ ] `kff: initialize v2.4.2 (Kargarok Flight, Release, ohne Autotest)` is present. If it is missing, the mod is not active.
 - [ ] `kff: region: RZDP (PAL ...)` is present for the test disc. Another disc gives a warning. That is expected.
 - [ ] No line contains `hook ... failed`. Two of the hook lines need special attention on Windows, because their symbol names are the MSVC form: `kff: hook dComIfGp_setNextStage (pre, core): ok` and `kff: hook updateAutoSave (pre, core, E11): ok`. Send the log if one of them says `failed`.
 - [ ] `registry check: ... modules=7 disabled=0 conflicts=0` is present, and no line says `module ... disabled`.
 
 Game checks:
 
-- [ ] **Mods panel (Mods-Fenster):** "Kargarok Flight" is listed. Its text shows `Version 2.4.1`.
+- [ ] **Mods panel (Mods-Fenster):** "Kargarok Flight" is listed. Its text shows `Version 2.4.2`.
 - [ ] **Call (Ruf R+B):** Hold R (R2), then tap B (Circle). The bird comes down above Link, grabs Link, and the ride starts.
 - [ ] **Speed (Gas R/L, R2/L2):** Hold R (R2): the speed rises. Hold L (L2): the speed falls to a hover at 0 percent. D-Pad Up and D-Pad Down change the speed in steps of 20 percent.
 - [ ] **Hover (Schweben):** Hold L until the bird stops in the air. It then hovers by itself. Push the Control Stick up to sink and down to climb. To fly on, hold R, tap D-Pad Up, or tap A.

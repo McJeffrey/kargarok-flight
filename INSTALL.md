@@ -1,4 +1,4 @@
-# Installation: Kargarok Flight 2.4.1
+# Installation: Kargarok Flight 2.4.2
 
 Fly anytime, anywhere on the friendly Kargarok! Call your ride and it swoops down, grabs Wolf Link in its talons and carries you high above Hyrule. Glide across Hyrule Field toward the castle, race through the canyon into Kakariko, circle the smoke of Death Mountain or sweep over the Gerudo Desert – the whole world is yours to explore from the sky. Speed up and slow down smoothly, hang perfectly still in the air to take in the view, burst ahead with a dash, or throw in loops and barrel rolls just for fun. Hold R and tap B to call the bird, tap B to land. Speed, camera and every flight button can be adjusted in the Mods panel.
 
@@ -26,7 +26,7 @@ Installation is manual. There is no installer script.
 3. If the mods folder contains an older version, such as `kargarok_flight.dusk` from 2.2.0, move it out of the folder first, for example to your Desktop.
 4. Start Dusklight.
 
-On start, the log contains the line `kff: initialize v2.4.1 (Kargarok Flight, Release, ohne Autotest)`. The log lines are in German, as the mod writes them. If the line is missing, the mod is not active. Then check that the file is in the mods folder and that it was copied completely. The footer of the Mods panel shows Version 2.4.1.
+On start, the log contains the line `kff: initialize v2.4.2 (Kargarok Flight, Release, ohne Autotest)`. The log lines are in German, as the mod writes them. If the line is missing, the mod is not active. Then check that the file is in the mods folder and that it was copied completely. The footer of the Mods panel shows Version 2.4.2.
 
 ## Log
 
