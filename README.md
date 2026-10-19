@@ -9,7 +9,7 @@ Kargarok Flight is a mod for Dusklight 2.0.3, a reverse-engineered reimplementat
 | | |
 |---|---|
 | Version | 2.4.1 |
-| Platform | macOS on Apple Silicon (arm64) |
+| Platforms | One `kargarok_flight.dusk` for Windows (x64, ARM64), macOS (Apple Silicon, Intel), Linux (x86_64, aarch64), iOS and Android. Tested in the game on macOS (Apple Silicon) and Windows (x64). The other platforms are built, but not tested in the game. |
 | Dusklight | 2.0.3 |
 | Tested | Disc ID `RZDP` (PAL). The mod writes a `region:` line to the log at start. `GZ2P`, `GZ2E` and `GZ2J` are not tested. |
 
@@ -34,10 +34,10 @@ Times in this guide are in ticks and seconds. A tick is one controller poll by t
 
 | | |
 |---|---|
-| ![Over Hyrule Field toward Hyrule Castle](docs/screenshots/1-hyrule-castle.png) | ![Over Hyrule Field toward Death Mountain](docs/screenshots/2-death-mountain.png) |
-| Over Hyrule Field toward Hyrule Castle, with Wolf Link in the talons. | Over Hyrule Field toward Death Mountain, with its smoke in the distance. |
-| ![Through the canyon into Kakariko](docs/screenshots/3-kakariko.png) | ![Over the Gerudo Desert](docs/screenshots/4-gerudo-desert.png) |
-| Through the canyon into Kakariko. | Over the Gerudo Desert, with the fortress on the horizon. |
+| ![Over the Gerudo Desert toward the Arbiter's Grounds](docs/screenshots/01-desert-flight.png) | ![Hovering in place over the desert](docs/screenshots/02-hover-in-place.png) |
+| Over the Gerudo Desert toward the Arbiter's Grounds, with Wolf Link in the talons. | Hovering in place, with "Show speed and hover" turned on. |
+| ![Camera behind the bird](docs/screenshots/03-rear-view.png) | ![Dash over the dunes](docs/screenshots/04-dash.png) |
+| The camera behind the bird. | A dash over the dunes. |
 
 ## Controls
 
@@ -259,12 +259,15 @@ Dusklight does not mark any point as a safe place to start from. After a warp, l
 See [INSTALL.md](INSTALL.md). In short:
 
 1. Quit Dusklight completely.
-2. Copy `kargarok_flight.dusk` into the Dusklight mods folder, `~/Library/Application Support/TwilitRealm/Dusklight/mods`.
+2. Copy `kargarok_flight.dusk` from the [latest release](https://github.com/McJeffrey/kargarok-flight/releases/latest) into the Dusklight mods folder. The same file works on every platform.
+   - Windows: `%APPDATA%\TwilitRealm\Dusklight\mods`
+   - macOS: `~/Library/Application Support/TwilitRealm/Dusklight/mods`
+   - Linux: `~/.local/share/TwilitRealm/Dusklight/mods`
 3. Start Dusklight. The log then contains the line `kff: initialize v2.4.1 (Kargarok Flight, Release, ohne Autotest)`. If it is missing, the mod is not active. The footer of the Mods panel shows "Version 2.4.1".
 
 ## Configuration
 
-Settings are stored in `config.json` in the Dusklight user folder. On the Mac this is `~/Library/Application Support/TwilitRealm/Dusklight/config.json`. Each key has the form `mod.com_kaizuki_kargarok__flight.<name>`. The [Configuration keys](#configuration-keys) table lists the short names, defaults and ranges.
+Settings are stored in `config.json` in the Dusklight user folder, the parent of the mods folder (see [Installation](#installation)). On the Mac this is `~/Library/Application Support/TwilitRealm/Dusklight/config.json`, on Windows `%APPDATA%\TwilitRealm\Dusklight\config.json`. Each key has the form `mod.com_kaizuki_kargarok__flight.<name>`. The [Configuration keys](#configuration-keys) table lists the short names, defaults and ranges.
 
 Dusklight saves changed values at most every 2 seconds, and at once when it quits. If you edit the file by hand, quit Dusklight first. Otherwise, Dusklight may overwrite your changes with its own values at the next save.
 
@@ -311,7 +314,7 @@ Example:
 - **The Warp tab is missing.** Turn on **Enable Advanced Settings** in Settings, Interface (see [Going to other regions](#going-to-other-regions-warp)).
 - **The mod should no longer load.** Quit Dusklight and move `kargarok_flight.dusk` out of the mods folder.
 
-Logs: Dusklight writes its logs to the `logs` folder in its user folder. On the Mac, this is `~/Library/Application Support/TwilitRealm/Dusklight/logs`. The file name starts with `dusklight`. All lines from the mod start with `kff:`. Lines such as `Failed to open file at idx: <n>` or `COPYDATE file not found at <path>` come from Dusklight, not from the mod.
+Logs: Dusklight writes its logs to the `logs` folder in its user folder. On the Mac, this is `~/Library/Application Support/TwilitRealm/Dusklight/logs`, on Windows `%APPDATA%\TwilitRealm\Dusklight\logs`. The file name starts with `dusklight`. All lines from the mod start with `kff:`. Lines such as `Failed to open file at idx: <n>` or `COPYDATE file not found at <path>` come from Dusklight, not from the mod.
 
 ## Credits and license
 

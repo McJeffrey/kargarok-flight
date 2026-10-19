@@ -1,5 +1,24 @@
 # Changelog
 
+## Unreleased
+
+One `kargarok_flight.dusk` for every platform Dusklight supports. The mod code and its behavior in the game are unchanged.
+
+### Added
+
+- GitHub Actions build (`.github/workflows/build.yml`, from TwilitRealm/mod-template). It builds the mod for Windows (x64, ARM64), macOS (Apple Silicon, Intel), Linux (x86_64, aarch64), iOS and Android and merges the packages into one `.dusk` with `tools/merge_mod.py`. A pushed tag attaches that file to the GitHub release.
+- `cmake/FetchDusklight.cmake` fetches the Dusklight sources (`v2.0.3`) on the first configure. `-DDUSKLIGHT_DIR` is no longer required.
+
+### Fixed
+
+- Windows build: MSVC now gets `/Zc:__cplusplus`. Without it, the build failed with `error C2440` in the standard library.
+- README: the four screenshot links pointed to files that do not exist.
+
+### Changed
+
+- README, INSTALL.md and WINDOWS.md describe all platforms. Tested in the game on macOS (Apple Silicon) and Windows (x64).
+- `.gitattributes` keeps text files LF, so `mod.json` is byte-identical in every platform package.
+
 ## 2.4.1
 
 Cleaner Mods panel: one description paragraph, settings right below. New mod ID `com.kaizuki.kargarok_flight`, so the settings of 2.4.0 are not carried over automatically.

@@ -2,18 +2,20 @@
 
 Fly anytime, anywhere on the friendly Kargarok! Call your ride and it swoops down, grabs Wolf Link in its talons and carries you high above Hyrule. Glide across Hyrule Field toward the castle, race through the canyon into Kakariko, circle the smoke of Death Mountain or sweep over the Gerudo Desert – the whole world is yours to explore from the sky. Speed up and slow down smoothly, hang perfectly still in the air to take in the view, burst ahead with a dash, or throw in loops and barrel rolls just for fun. Hold R and tap B to call the bird, tap B to land. Speed, camera and every flight button can be adjusted in the Mods panel.
 
-Kargarok Flight is a mod for Dusklight 2.0.3. These instructions apply only to macOS on Apple Silicon Macs (arm64).
+Kargarok Flight is a mod for Dusklight 2.0.3. One file, `kargarok_flight.dusk`, contains the mod for Windows (x64, ARM64), macOS (Apple Silicon, Intel), Linux (x86_64, aarch64), iOS and Android. It is tested in the game on macOS (Apple Silicon) and Windows (x64).
 
 ## What you need
 
-- Dusklight 2.0.3 for macOS arm64, with your own copy of *The Legend of Zelda: Twilight Princess*. The tested disc ID is `RZDP` (PAL).
-- The file `kargarok_flight.dusk`. The package contains only the mod.
+- Dusklight 2.0.3 for your platform, from https://github.com/TwilitRealm/dusklight/releases/tag/v2.0.3, with your own copy of *The Legend of Zelda: Twilight Princess*. The tested disc ID is `RZDP` (PAL).
+- The file `kargarok_flight.dusk` from the [latest release](https://github.com/McJeffrey/kargarok-flight/releases/latest). The package contains only the mod.
 
 ## Mods folder
 
-Dusklight loads mod files (`.dusk`) from the `mods` folder in its user folder. On the Mac, this is:
+Dusklight loads mod files (`.dusk`) from the `mods` folder in its user folder:
 
-`~/Library/Application Support/TwilitRealm/Dusklight/mods`
+- Windows: `%APPDATA%\TwilitRealm\Dusklight\mods` (Win+R, paste the path). Create the folder `mods` if it does not exist.
+- macOS: `~/Library/Application Support/TwilitRealm/Dusklight/mods`
+- Linux: `~/.local/share/TwilitRealm/Dusklight/mods`
 
 ## Installation
 
@@ -28,7 +30,7 @@ On start, the log contains the line `kff: initialize v2.4.1 (Kargarok Flight, Re
 
 ## Log
 
-The log file is in the `logs` folder in the Dusklight user folder. On the Mac, this is `~/Library/Application Support/TwilitRealm/Dusklight/logs`. Its file name starts with `dusklight`. All messages from the mod start with `kff:`.
+The log file is in the `logs` folder in the Dusklight user folder, next to the `mods` folder. On the Mac, this is `~/Library/Application Support/TwilitRealm/Dusklight/logs`, on Windows `%APPDATA%\TwilitRealm\Dusklight\logs`. Its file name starts with `dusklight`. All messages from the mod start with `kff:`.
 
 ## Uninstall
 

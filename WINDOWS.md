@@ -2,21 +2,22 @@
 
 ## Kurzfassung (Deutsch)
 
-- Dieses Repo baut den Mod unter Windows mit CMake. Die Grundlage ist der öffentliche Dusklight-Quellcode, Tag `v2.0.3`, mit Submodulen. Ein eigener Dusklight-Fork ist nicht nötig.
+- Zum Spielen musst du nichts bauen: Die `.dusk` aus dem [Release](https://github.com/McJeffrey/kargarok-flight/releases/latest) läuft auf allen Plattformen, auch auf Windows. Sie wird von GitHub Actions gebaut (`.github/workflows/build.yml`).
+- Dieses Dokument beschreibt den lokalen Build unter Windows, für die Entwicklung. Ein lokal gebautes Paket enthält nur die eigene Plattform und ist nicht zum Weitergeben gedacht.
 - Du brauchst Visual Studio (Workload "Desktop-Entwicklung mit C++"), CMake 3.25 oder neuer, Ninja und Git. Python brauchst du für den Mod nicht.
-- Alle Befehle laufen in der **Developer PowerShell for VS** (Startmenü). Ergebnis: `build\mods\kargarok_flight.dusk`.
+- Alle Befehle laufen in der **Developer PowerShell for VS** (Startmenü). CMake holt den Dusklight-Quellcode `v2.0.3` selbst. Ergebnis: `build\mods\kargarok_flight.dusk`.
 - Dusklight vollständig beenden, dann die `.dusk` in `%APPDATA%\TwilitRealm\Dusklight\mods` kopieren.
 - Die Test-Checkliste steht in Abschnitt 5.
-- Stand: Der Build ist für Windows vorbereitet, aber noch auf keinem Windows-PC gebaut. Der erste Lauf auf Windows ist der eigentliche Test.
+- Stand 19.10.2026: gebaut mit Visual Studio 2022 Build Tools (MSVC 14.44) auf Windows 11 x64 und im Spiel getestet (Ruf, Flug, Gas, Fassrolle, Schweben, Landung).
 
-The README and INSTALL.md describe macOS only. This file is the Windows guide.
+This file is the Windows build guide. Installing and playing are described in INSTALL.md and README.md.
 
 ---
 
 ## 1. Requirements
 
 - Windows 10 or 11, 64-bit.
-- Visual Studio with the workload **Desktop development with C++**, including the Windows 11 SDK and CMake tools for Windows. The Dusklight documentation recommends Visual Studio 2026 Community. Visual Studio 2022 has not been tested for this mod.
+- Visual Studio with the workload **Desktop development with C++**, including the Windows 11 SDK and CMake tools for Windows. The Dusklight documentation recommends Visual Studio 2026 Community. Visual Studio 2022 (Build Tools, MSVC 14.44) is tested for this mod.
 - CMake 3.25 or newer. It is included in the Visual Studio CMake tools, or install it with `winget install Kitware.CMake`.
 - Ninja. It is usually included with the Visual Studio CMake tools. Otherwise install it with `winget install Ninja-build.Ninja`.
 - Git for Windows.
@@ -34,12 +35,9 @@ Use PowerShell. The examples use `C:\dev`.
 ```powershell
 cd C:\dev
 git clone https://github.com/McJeffrey/kargarok-flight.git kargarok-flight
-git clone --recursive --branch v2.0.3 https://github.com/TwilitRealm/dusklight.git dusklight-2.0.3
 ```
 
-- The mod repository is private. Git asks you to sign in on the first clone. Git Credential Manager opens a browser window for that.
-- The second clone is the public Dusklight repository at tag `v2.0.3`, with its submodules. Check it with `git -C C:\dev\dusklight-2.0.3 describe --tags`. The output must be `v2.0.3`.
-- Keep the Dusklight clone outside the mod repository. Do not commit it.
+You do not need a separate Dusklight clone. On the first configure, `cmake/FetchDusklight.cmake` fetches the public Dusklight sources at the version pinned in `CMakeLists.txt` (`DUSKLIGHT_VERSION`, now `v2.0.3`) into `kargarok-flight\dusklight`. Git ignores that folder.
 
 ## 3. Build the mod (Release, without test code)
 
@@ -48,14 +46,15 @@ git clone --recursive --branch v2.0.3 https://github.com/TwilitRealm/dusklight.g
 
 ```powershell
 cd C:\dev\kargarok-flight
-cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DKFF_DEV_AUTOTEST=OFF -DDUSKLIGHT_DIR=C:/dev/dusklight-2.0.3
-cmake --build build --target kargarok_flight_package
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DKFF_DEV_AUTOTEST=OFF
+cmake --build build
 ```
 
 Notes:
 
 - `-DKFF_DEV_AUTOTEST=OFF` builds the release without the test code. Do not change it for the normal test.
-- `-DDUSKLIGHT_DIR` must point to the folder that contains `sdk`. Use forward slashes (`C:/dev/...`).
+- To use an existing Dusklight checkout instead of the fetched one, add `-DDUSKLIGHT_DIR=C:/dev/dusklight-2.0.3`. It must point to the folder that contains `sdk`. Use forward slashes (`C:/dev/...`).
+- `CMakeLists.txt` adds `/Zc:__cplusplus` for MSVC. Without it, MSVC reports `__cplusplus` as `199711L`, `dolphin/types.h` then defines `nullptr` as `NULL`, and the standard library fails to compile (`error C2440` in `<utility>`).
 - If you do not pass `-DDUSK_GAME_EXE`, CMake downloads the link stub `windows-amd64.lib` (about 9 MB) during configure. The source is `https://github.com/encounter/dusklight/releases/download/sdk/windows-amd64.lib`. If the download fails, for example behind a proxy or firewall, download that file in a browser. Then add `-DDUSK_GAME_EXE=C:/path/to/windows-amd64.lib` to the configure command. The file name must end in `.lib`.
 - After a change in the CMake files, run `cmake -S . -B build` again. The cache keeps the other settings.
 
@@ -67,7 +66,7 @@ The result is `build\mods\kargarok_flight.dusk`. It is a zip archive. It must co
 2. Open `%APPDATA%\TwilitRealm\Dusklight\mods` (Win+R, paste the path). Create the folder `mods` if it does not exist.
 3. If the folder contains an older `kargarok_flight.dusk`, for example from 2.2.0, move that file out of the folder first.
 4. Copy `build\mods\kargarok_flight.dusk` into that folder. Keep the file name unchanged.
-5. Start Dusklight with your game disc. The Dusklight documentation describes the `--dvd <path>` option.
+5. Start Dusklight with your game disc image, for example `dusklight.exe "C:\Games\Twilight Princess.rvz"`. `dusklight.exe --help` lists the other options. `--stage F_SP103,1,0,-1` starts directly in Ordon Village, which is handy for a quick test.
 
 Other Dusklight paths on Windows:
 
@@ -78,6 +77,8 @@ Other Dusklight paths on Windows:
 ## 5. Test checklist
 
 The button names are the GameCube names used in the Mods panel. On a DualSense, R is R2, L is L2, and Z is R1. Other controllers and the Windows button mapping are not tested. Check the mapping in the Flight buttons window.
+
+Keyboard: Dusklight 2.0.3 has no default keyboard keys. Without a controller, the game shows "No device assigned". Choose Keyboard in Dusklight's controller settings and assign a key to every button and stick direction. The test on 19.10.2026 ran on the keyboard.
 
 Log checks (open the newest `dusklight*.log` after the start):
 
@@ -102,7 +103,8 @@ If the bird does not start a ride, search the log for `call rejected`. The reaso
 
 ## 6. Troubleshooting
 
-- **`DUSKLIGHT_DIR fehlt`:** the `-DDUSKLIGHT_DIR=...` option is missing or empty.
+- **`'git fetch ...' failed`** during configure: CMake could not fetch the Dusklight sources. Check your internet connection, or pass an existing checkout with `-DDUSKLIGHT_DIR=...` (section 3).
+- **`error C2440: "=": "int" kann nicht in "_Ty" konvertiert werden`** in `<utility>`: the `/Zc:__cplusplus` flag is missing. It is set in `CMakeLists.txt`. Delete the `build` folder and configure again.
 - **`Mod SDK: failed to download`:** see the note on `-DDUSK_GAME_EXE` in section 3.
 - **No compiler found, or `cl` not recognized:** you are not in a Developer PowerShell. Open it from the Start menu.
 - **`ninja` not found:** install Ninja (section 1).
@@ -111,7 +113,8 @@ If the bird does not start a ride, search the log for `call rejected`. The reaso
 
 ## 7. Status and developer notes
 
-- The Windows build is not yet tested on a Windows PC.
+- Tested on 19.10.2026: Windows 11 x64, Visual Studio 2022 Build Tools (MSVC 14.44), Dusklight 2.0.3 (D3D12), disc `RZDP`. All hooks `ok`, `registry check: ... modules=7 disabled=0 conflicts=0`. In the game: call, flight, speed, steering, barrel roll, hover and landing work. Windows ARM64 is built by GitHub Actions, but not tested in the game.
+- GitHub Actions (`.github/workflows/build.yml`, from TwilitRealm/mod-template) builds the mod for every platform and merges the packages with `tools/merge_mod.py` into one `.dusk`. Pushing a tag attaches that file to the GitHub release.
 - The package uses the ModSDK convention `lib/<platform>/mod.dll`. For x64, `<platform>` is `windows-amd64`, not `windows-x86_64`.
 - The mod uses the game headers from the Dusklight tree. Game data is accessed through `DUSK_GAME_DATA` (`__declspec(dllimport)` on Windows), which the headers already provide.
 - Two hook targets use MSVC decorated symbol names (`#ifdef _MSVC_LANG` in `src\core\hooks.cpp`): `dComIfGp_setNextStage` (four-argument overload) and `updateAutoSave`. They are checked in the log (section 5).
